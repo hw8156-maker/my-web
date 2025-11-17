@@ -16,12 +16,20 @@
         </div>
     </div>
 
-    <!-- MQTT Client 라이브러리 -->
-    <script src="https://unpkg.com/paho-mqtt/paho-mqtt.min.js"></script>
+    <!-- ✅ 브라우저용 MQTT WebSocket 라이브러리(mqttws31) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
 
     <script>
+        console.log("🚀 Paho MQTT library loaded:", typeof Paho);
+
+        // ===== MQTT 설정 =====
+        const host = "test.mosquitto.org";  // 브로커 주소
+        const port = 8081;                  // WebSocket 포트
+        const path = "/mqtt";               // WebSocket 경로
         const clientID = "webclient_" + Math.random().toString(16).substr(2, 8);
-        const client = new Paho.MQTT.Client("wss://test.mosquitto.org:8081/mqtt", clientID);
+
+        // ✅ 브라우저용 Paho는 이렇게 생성해야 함 (host, port, path, clientID)
+        const client = new Paho.MQTT.Client(host, port, path, clientID);
 
         client.onConnectionLost = function(responseObject) {
             console.log("MQTT Connection Lost:", responseObject.errorMessage);
@@ -33,14 +41,17 @@
         };
 
         client.connect({
-            onSuccess: function() {
-                console.log("MQTT Connected!");
-                client.subscribe("ewha/2270095"); // 학번으로 구독!
+            useSSL: true,   // wss 이므로 true
+            onSuccess: function () {
+                console.log("✅ MQTT Connected!");
+                client.subscribe("ewha/2270095");
+                console.log("✅ Subscribed to topic: ewha/2270095");
             },
-            useSSL: true
+            onFailure: function (err) {
+                console.log("❌ MQTT Connect failed:", err);
+            }
         });
     </script>
 
 </body>
 </html>
-
