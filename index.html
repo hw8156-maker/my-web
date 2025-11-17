@@ -2,10 +2,10 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>혜원의 MQTT 페이지</title>
+    <title>혜원의 프로젝트 페이지</title>
 </head>
-<body>
 
+<body>
     <h1>내 웹페이지</h1>
     <p>아래는 MQTT 메시지를 실시간으로 표시하는 영역입니다.</p>
 
@@ -16,16 +16,12 @@
         </div>
     </div>
 
-    <!-- ✔ 브라우저용 MQTT WebSocket Client -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    <!-- MQTT Client 라이브러리 -->
+    <script src="https://unpkg.com/paho-mqtt/paho-mqtt.min.js"></script>
 
     <script>
-        console.log("🚀 Paho MQTT library loaded:", typeof Paho);
-
         const clientID = "webclient_" + Math.random().toString(16).substr(2, 8);
-
-        // WebSocket 주소 (이건 나중에 맞춰줄게!)
-        const client = new Paho.MQTT.Client("wss://damoa.io:8084/", clientID);
+        const client = new Paho.MQTT.Client("wss://damoa.io:8084/mqtt", clientID);
 
         client.onConnectionLost = function(responseObject) {
             console.log("MQTT Connection Lost:", responseObject.errorMessage);
@@ -39,7 +35,7 @@
         client.connect({
             onSuccess: function() {
                 console.log("MQTT Connected!");
-                client.subscribe("ewha/2270095");
+                client.subscribe("ewha/2270095"); // 학번으로 구독!
             },
             useSSL: true
         });
@@ -47,7 +43,3 @@
 
 </body>
 </html>
-
-
-
-
