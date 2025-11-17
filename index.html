@@ -16,15 +16,15 @@
         </div>
     </div>
 
-    <!-- 반드시 MQTT 코드보다 위에 있어야 함 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js"></script>
+    <!-- ✔ 브라우저용 MQTT WebSocket Client -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
 
     <script>
         console.log("🚀 Paho MQTT library loaded:", typeof Paho);
 
         const clientID = "webclient_" + Math.random().toString(16).substr(2, 8);
 
-        // WebSocket 주소는 나중에 맞출게
+        // WebSocket 주소 (이건 나중에 맞춰줄게!)
         const client = new Paho.MQTT.Client("wss://damoa.io:8084/mqtt", clientID);
 
         client.onConnectionLost = function(responseObject) {
@@ -47,7 +47,5 @@
 
 </body>
 </html>
-
-
 
 
