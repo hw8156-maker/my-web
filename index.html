@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>혜원의 프로젝트 페이지</title>
 </head>
-
 <body>
+
     <h1>내 웹페이지</h1>
     <p>아래는 MQTT 메시지를 실시간으로 표시하는 영역입니다.</p>
 
@@ -16,8 +16,8 @@
         </div>
     </div>
 
-    <!-- MQTT Client 라이브러리 -->
-    <script src="https://unpkg.com/paho-mqtt/paho-mqtt.min.js"></script>
+    <!-- 수정된 MQTT Client 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js"></script>
 
     <script>
         const clientID = "webclient_" + Math.random().toString(16).substr(2, 8);
@@ -35,7 +35,7 @@
         client.connect({
             onSuccess: function() {
                 console.log("MQTT Connected!");
-                client.subscribe("ewha/2270095"); // 학번으로 구독!
+                client.subscribe("ewha/2270095");
             },
             useSSL: true
         });
@@ -43,6 +43,7 @@
 
 </body>
 </html>
+
 
 
 
