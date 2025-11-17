@@ -21,7 +21,7 @@
 
     <script>
         const clientID = "webclient_" + Math.random().toString(16).substr(2, 8);
-        const client = new Paho.MQTT.Client("wss://damoa.io:8084/mqtt", clientID);
+        const client = new Paho.MQTT.Client("wss://damoa.io:1883/mqtt", clientID);
 
         client.onConnectionLost = function(responseObject) {
             console.log("MQTT Connection Lost:", responseObject.errorMessage);
@@ -43,6 +43,7 @@
 
 </body>
 </html>
+
 
 
 
